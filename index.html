@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... (head meta, styles, favicon, manifest, unchanged) ... -->
+</head>
+<body>
+    <!-- Emergency Panic Button (unchanged) -->
+    <button id="panic-btn" class="panic-button" aria-label="Emergency panic button - Call for immediate help" title="Press for emergency assistance">
+        <span class="panic-icon">🚨</span>
+        <span class="panic-text">EMERGENCY</span>
+    </button>
+    <div id="app" class="app-container">
+
+        <!-- Welcome Page -->
+        <main id="welcome-page" class="page active" role="main">
+            <div class="container">
+                <!-- ... (Logo, tagline, feature cards, unchanged) ... -->
+                <section class="hero" aria-labelledby="hero-heading">
+                    <h2 id="hero-heading">Find or Offer Accessible Travel Services</h2>
+                    <div class="cta-buttons">
+                        <button class="btn btn--primary btn--lg" id="choose-book-btn">Book Services</button>
+                        <button class="btn btn--outline btn--lg" id="choose-offer-btn">Offer Services</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- BOOK SERVICES FLOW -->
+        <main id="book-services-page" class="page" role="main" style="display:none;">
+            <div class="container">
+                <header>
+                    <button class="btn btn--outline back-btn" id="back-to-welcome-book" aria-label="Back">← Back</button>
+                    <h1>Book Services</h1>
+                </header>
+                <section>
+                    <h2>Select Service Type</h2>
+                    <div class="choice-buttons">
+                        <button class="service-choice-btn" data-type="driver">Driver</button>
+                        <button class="service-choice-btn" data-type="buddy">Buddy</button>
+                        <button class="service-choice-btn" data-type="scout">Scout</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Service Search Results: Provider Profiles List -->
+        <main id="provider-list-page" class="page" role="main" style="display:none;">
+            <div class="container">
+                <header>
+                    <button class="btn btn--outline back-btn" id="back-to-book-types" aria-label="Back">← Back</button>
+                    <h1>Choose Your Companion</h1>
+                </header>
+                <section id="provider-profiles-list" aria-labelledby="profiles-heading">
+                    <h2 id="profiles-heading" class="sr-only">Available Providers</h2>
+                    <!-- JS will insert profile cards like below -->
+                    <!--
+                    <div class="provider-profile-card">
+                        <img src="..." alt="Profile picture">
+                        <h3>Jane Doe</h3>
+                        <p><strong>Service:</strong> Driver (With Vehicle)</p>
+                        <p><strong>Rate:</strong> ₹480/hour</p>
+                        <p><strong>Rating:</strong> 4.8 ⭐</p>
+                        <p>10+ years experience driving tourists...</p>
+                        <button class="btn btn--primary book-provider-btn" data-provider-id="...">Book</button>
+                    </div>
+                    -->
+                </section>
+            </div>
+        </main>
+
+        <!-- Book Service Form -->
+        <main id="book-form-page" class="page" role="main" style="display:none;">
+            <div class="container">
+                <header>
+                    <button class="btn btn--outline back-btn" id="back-to-provider-list" aria-label="Back">← Back</button>
+                    <h1>Book Service</h1>
+                </header>
+                <form id="booking-form" class="booking-form" novalidate>
+                    <div class="form-group">
+                        <label for="booking-date" class="form-label">Date of Service *</label>
+                        <input type="date" id="booking-date" name="bookingDate" class="form-control" required aria-describedby="booking-date-help">
+                        <div id="booking-date-help" class="form-help">Must be at least 3 days from today</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-hours" class="form-label">Number of Hours *</label>
+                        <input type="number" id="booking-hours" name="bookingHours" min="1" max="12" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="booking-location" class="form-label">Pickup/Meeting Location *</label>
+                        <input type="text" id="booking-location" name="bookingLocation" class="form-control" required>
+                    </div>
+                    <div class="booking-summary">
+                        <p id="booking-rate-info"></p>
+                        <p><strong>Total:</strong> <span id="total-amount"></span></p>
+                        <p><strong>Advance to pay now (10%):</strong> <span id="advance-amount"></span></p>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width btn--lg" id="book-now-btn">
+                        Pay & Book Now
+                    </button>
+                </form>
+            </div>
+        </main>
+
+        <!-- OFFER SERVICES FLOW -->
+        <main id="offer-services-page" class="page" role="main" style="display:none;">
+            <div class="container">
+                <header>
+                    <button class="btn btn--outline back-btn" id="back-to-welcome-offer" aria-label="Back">← Back</button>
+                    <h1>Offer Services</h1>
+                </header>
+                <h2>Choose How You Want to Help</h2>
+                <div class="choice-buttons">
+                    <button class="offer-choice-btn" data-offer-type="driver-buddy">Driver Buddy</button>
+                    <button class="offer-choice-btn" data-offer-type="scout">Scout</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Provider Registration Form -->
+        <main id="provider-registration-page" class="page" role="main" style="display:none;">
+            <div class="container">
+                <header>
+                    <button class="btn btn--outline back-btn" id="back-to-offer-types" aria-label="Back">← Back</button>
+                    <h1 id="provider-reg-title">Register as Service Provider</h1>
+                </header>
+                <form id="provider-registration-form" class="registration-form" novalidate>
+                    <div class="form-group">
+                        <label for="provider-name" class="form-label">Full Name *</label>
+                        <input type="text" id="provider-name" name="providerName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="provider-email" class="form-label">Email Address *</label>
+                        <input type="email" id="provider-email" name="providerEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="provider-phone" class="form-label">Phone Number *</label>
+                        <input type="tel" id="provider-phone" name="providerPhone" class="form-control" required>
+                    </div>
+                    <div class="form-group scout-fields driver-buddy-fields">
+                        <label for="provider-experience" class="form-label">Short Experience Summary *</label>
+                        <textarea id="provider-experience" name="providerExperience" class="form-control" rows="3" required aria-describedby="exp-help"></textarea>
+                        <div id="exp-help" class="form-help">E.g., “5 years guiding tourists, fluent in Hindi & English”</div>
+                    </div>
+                    <div class="form-group driver-buddy-fields" style="display:none;">
+                        <label for="provider-vehicle" class="form-label">Vehicle Details</label>
+                        <input type="text" id="provider-vehicle" name="providerVehicle" class="form-control">
+                        <label for="provider-license" class="form-label">Driving License Upload *</label>
+                        <input type="file" id="provider-license" name="providerLicense" class="form-control" accept="image/*,application/pdf" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="provider-rate" class="form-label">Your Rate per Hour (₹, Max shown below) *</label>
+                        <input type="number" id="provider-rate" name="providerRate" class="form-control" min="50" max="500" step="10" required>
+                        <div id="rate-cap-info" class="form-help">Your current rating: 5.0 — Max rate allowed: ₹500/hr</div>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width btn--lg" id="provider-register-btn">
+                        Register & Offer Service
+                    </button>
+                </form>
+            </div>
+        </main>
+
+        <!-- Keep rest of the original pages and markup as needed for chat, feedback, etc. -->
+
+    </div>
+    <div id="loading-overlay" class="loading-overlay" aria-hidden="true" style="display:none;">
+        <div class="loading-content">
+            <div class="loading-spinner" aria-label="Loading"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+    <script src="app.js"></script>
+</body>
+</html>
